@@ -10,6 +10,14 @@ export default function App() {
   return (
     <div>
       <Steps />
+      <StepsMessage step={1}>
+        <p>Pass in content</p>
+        <p>😎</p>
+      </StepsMessage>
+      <StepsMessage step={2}>
+        <p>Read children prop</p>
+        <p>✌️</p>
+      </StepsMessage>
       {/*<Steps />*/}
     </div>
   );
@@ -51,21 +59,40 @@ function Steps() {
           <p className="message">
             Step: {step}: {messages[step - 1]}
           </p>
+
+          <StepsMessage step={step}>
+            {messages[step - 1]}
+            <div className="buttons">
+              <Button
+                bgColor="#e7e7e7"
+                textColor="#333"
+                onClick={() => alert(`Learn how to ${messages[step - 1]}`)}
+              >
+                Learn how
+              </Button>
+            </div>
+          </StepsMessage>
+
           <div className="buttons">
-            <Button
-              bgColor="#7950f2"
-              textColor="#fff"
-              onClick={handlePrevious}
-            ><span>👈</span> Previous</Button>
-            <Button
-              bgColor="#7950f2"
-              textColor="#fff"
-              onClick={handleNext}
-            ><span>👉</span> Next</Button>
+            <Button bgColor="#7950f2" textColor="#fff" onClick={handlePrevious}>
+              <span>👈</span> Previous
+            </Button>
+            <Button bgColor="#7950f2" textColor="#fff" onClick={handleNext}>
+              <span>👉</span> Next
+            </Button>
           </div>
         </div>
       )}
     </div>
+  );
+}
+
+function StepsMessage({ step, children }) {
+  return (
+    <p className="message">
+      <h3>Step {step}</h3>
+      {children}
+    </p>
   );
 }
 
